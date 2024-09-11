@@ -1,0 +1,88 @@
+{% extends "_base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% load static %} <!-- เพิ่มการโหลด static tag library -->
+
+<div class="box content w-32 h-32 border-4 border-slate-500 p-4 text-center font-Charm text-3xl">
+    ลันโซ่
+</div>
+
+<div class="mt-4">
+    <h2 id="head" class="text-4xl font-kanit">สวัสดีชาวโลก</h2>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full mt-2 font-Sriracha" onclick="document.getElementById('head').style.color='red'">เปลี่ยนสี</button>
+</div>
+
+<div id="currentDateTime" class="mt-4 text-4xl font-Charm">
+    <!-- DateTime will be updated here -->
+</div>
+
+<div class="mt-4 flex items-center"> <!-- ใช้ Flexbox จัดเรียง -->
+    <!-- ปุ่มแรก -->
+    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-Sriracha hover:text-white border border-blue-500 hover:border-transparent rounded mr-4"
+        style="width: 200px; height: 200px;" 
+        onclick="document.getElementById('myImage').src='{% static 'images/Idle.png' %}'">แมวยืน</button>
+    
+    <!-- รูปภาพที่จะแสดง -->
+    <img id="myImage" src="{% static 'images/mo.png' %}" alt="แมวยืน" width="400px" height="400px" class="mr-4">
+    
+    <!-- ปุ่มที่สอง -->
+    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-Sriracha hover:text-white border border-blue-500 hover:border-transparent rounded"
+        style="width: 200px; height: 200px;" 
+        onclick="document.getElementById('myImage').src='{% static 'images/Slide.png' %}'">แมวสไลด์</button>
+</div>
+
+<button id="toggleButton" onclick="toggleTable()"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mb-4">
+        แสดงตาราง
+    </button>
+
+<div id="tableContainer" class="mt-4">
+    <table id="productTable" class="table-auto w-full border-collapse border border-gray-300 bg-white shadow-md rounded-lg">
+        <caption class="text-xl font-semibold mb-4 p-4 bg-blue-200 text-blue-800 rounded-t-lg">ตารางสินค้า</caption>
+        <thead>
+            <tr class="bg-blue-300 text-white">
+                <th class="border border-gray-700 px-4 py-2">รายการที่ 1</th>
+                <th class="border border-gray-700 px-4 py-2">รายการที่ 2</th>
+                <th class="border border-gray-700 px-4 py-2">รายการที่ 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="hover:bg-blue-50">
+                <td class="border border-gray-700 px-4 py-2 text-center">324</td>
+                <td class="border border-gray-700 px-4 py-2 text-center">657</td>
+                <td class="border border-gray-700 px-4 py-2 text-center">318</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+                <td class="border border-gray-700 px-4 py-2 text-center">999</td>
+                <td class="border border-gray-700 px-4 py-2 text-center">777</td>
+                <td class="border border-gray-700 px-4 py-2 text-center">888</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-4">
+    <!-- Input fields -->
+    <label for="num1" class="block">หมายเลข #1</label>
+    <input class="border-4 border-slate-500" type="number" id="num1">
+    
+    <label for="num2" class="block">หมายเลข #2</label>
+    <input class="border-4 border-slate-500" type="number" id="num2">
+    
+    <label for="num3" class="block">หมายเลข #3</label>
+    <input class="border-4 border-slate-500" type="number" id="num3">
+    
+    <button onclick="calculateStats()" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full mt-4">คำนวณ</button>
+</div>
+
+<!-- Display results -->
+<div id="results" class="mt-4 text-2xl">
+    <div id="average"></div>
+    <div id="max"></div>
+    <div id="min"></div>
+</div>
+<div></div>
+
+{% endblock content %}

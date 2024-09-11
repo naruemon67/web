@@ -1,0 +1,85 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Untitled{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charm&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet">
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+</head>
+
+<body>
+    <div class="container mx-auto px-4 pt-4">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <script>
+        function ThaiDateTime(date) {
+            let monthName = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+
+            let year = date.getFullYear() + 543;
+            let month = monthName[date.getMonth()];
+            let numOfDay = date.getDate();
+
+            let hours = date.getHours().toString().padStart(2, "0");
+            let minutes = date.getMinutes().toString().padStart(2, "0");
+            let seconds = date.getSeconds().toString().padStart(2, "0");
+
+            return `${numOfDay} ${month} ${year} ${hours}:${minutes}:${seconds} น.`;
+        }
+
+        function UpdateTime() {
+            let now = ThaiDateTime(new Date());
+            document.getElementById('currentDateTime').innerHTML = now;
+        }
+        setInterval(UpdateTime, 1000);
+
+        function toggleTable() {
+            const tableContainer = document.getElementById('tableContainer');
+            const button = document.getElementById('toggleButton');
+            if (tableContainer.style.display === 'none') {
+                tableContainer.style.display = 'block'; // Show the table
+                button.textContent = 'ซ่อนตาราง'; // Change button text to "Hide Table"
+            } else {
+                tableContainer.style.display = 'none'; // Hide the table
+                button.textContent = 'แสดงตาราง'; // Change button text to "Show Table"
+            }
+        }
+
+        function calculateStats() {
+            // Get the values from the input fields
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            const num3 = parseFloat(document.getElementById('num3').value) || 0;
+
+            // Calculate the average, maximum, and minimum
+            const numbers = [num1, num2, num3];
+            const sum = numbers.reduce((a, b) => a + b, 0);
+            const average = sum / numbers.length;
+            const max = Math.max(...numbers);
+            const min = Math.min(...numbers);
+
+            // Display the results
+            document.getElementById('average').textContent = `ค่าเฉลี่ย: ${average.toFixed(2)}`;
+            document.getElementById('max').textContent = `ค่าสูงสุด: ${max}`;
+            document.getElementById('min').textContent = `ค่าต่ำสุด: ${min}`;
+        }
+    </script>
+</body>
+
+</html>
